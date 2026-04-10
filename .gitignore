@@ -1,0 +1,13 @@
+# Build output
+alfvcd
+src/*.o
+
+# Test artifacts
+tests/blink/blink.elf
+tests/blink/blink.hex
+
+# VCD outputs (generated files)
+*.vcd
+
+# macOS
+.DS_Store

@@ -1,0 +1,33 @@
+alfvcd simula firmware AVR y genera un archivo .vcd para visualizar señales GPIO en GTKWave.
+
+Requiere simavr (libsimavr.a) en ~/simavr/simavr. Compilar con: make
+
+Uso básico con un .hex (requiere --mcu y, opcionalmente, --freq):
+  ./alfvcd -m atmega328p -f 16000000 -o trace.vcd firmware.hex
+
+Correr hasta que el firmware haga sleep/halt (recomendado si el firmware termina solo):
+  ./alfvcd -m atmega328p --indefinite -o trace.vcd firmware.hex
+
+Correr por un tiempo fijo (en microsegundos, default 1000000 = 1 segundo):
+  ./alfvcd -m atmega328p -t 500000 -o trace.vcd firmware.hex
+
+Ver qué señales se registraron (ports B, C, D y todos sus pines):
+  ./alfvcd -m atmega328p --indefinite -v -o trace.vcd firmware.hex
+
+Abrir el resultado en GTKWave:
+  gtkwave trace.vcd
+
+Convertir un .elf a .hex antes de usar:
+  avr-objcopy -O ihex firmware.elf firmware.hex
+
+Opciones completas:
+  -m, --mcu <name>      MCU (ej: atmega328p, atmega168, attiny85)
+  -f, --freq <hz>       Frecuencia del reloj (default: 16000000)
+  -o, --output <file>   Archivo VCD de salida (default: trace.vcd)
+  -t, --time <usec>     Tiempo de simulación en microsegundos (default: 1000000)
+      --indefinite      Correr hasta que el firmware haga sleep/halt
+  -v, --verbose         Mostrar puertos y señales registradas
+  -h, --help            Mostrar ayuda
+
+Correr los tests:
+  make test
