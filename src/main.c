@@ -228,8 +228,8 @@ int main(int argc, char *argv[]) {
     free(hex_data);
     return 1;
   }
-  avr->frequency = freq;
   avr_init(avr);
+  avr->frequency = freq; /* Must be set AFTER avr_init(): avr_init() hardcodes frequency=1MHz */
 
   if (is_hex) {
     avr_loadcode(avr, hex_data, hex_size, hex_start);
